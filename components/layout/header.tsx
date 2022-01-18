@@ -1,64 +1,53 @@
 import {
-  Box,
   Button,
   Heading,
   HStack,
   IconButton,
-  Link as ChakraLink,
-  useColorMode,
+  Link,
+  Spacer,
   textDecoration,
+  useColorMode,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
 
-import Link from "next/link";
-import { IoMdHome, IoMdMoon, IoMdSunny } from "react-icons/io";
+import { IoMdMoon, IoMdSunny } from "react-icons/io";
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <HStack
       as="nav"
-      justifyContent={"space-between"}
+      justifyContent="space-between"
       alignItems={"center"}
-      py={3}
+      py={4}
     >
-      <Heading fontSize={"sm"}>Janvi.</Heading>
-      <HStack alignItems={"center"} spacing={2} fontSize={"md"}>
-        <Link href="/talks" passHref>
-          <Button
-            _hover={{ textDecor: "none", cursor: "pointer" }}
-            as={ChakraLink}
-            size="sm"
-            variant="ghost"
-          >
-            Talks
-          </Button>
-        </Link>
-        <Link href="/bookmarks" passHref>
-          <Button
-            _hover={{ textDecor: "none", cursor: "pointer", outline: "2px" }}
-            as={ChakraLink}
-            size="sm"
-            variant="ghost"
-          >
-            Bookmarks
-          </Button>
-        </Link>
-        <Link href="/blog" passHref>
-          <Button
-            _hover={{ textDecor: "none", cursor: "pointer" }}
-            as={ChakraLink}
-            size="sm"
-            variant="ghost"
-          >
-            Blog
-          </Button>
-        </Link>
+      <Heading size="small" pr={5}>
+        <NextLink href="/" passHref>
+          <Link>Janvi.</Link>
+        </NextLink>
+      </Heading>
 
+      <HStack alignItems="center" spacing="4">
+        <Button size="sm" variant="ghost">
+          <NextLink href="/talks" passHref>
+            <Link _hover={{ textDecoration: "none" }}>Talks</Link>
+          </NextLink>
+        </Button>
+        <Button size="sm" variant="ghost">
+          <NextLink href="/blog" passHref>
+            <Link _hover={{ textDecoration: "none" }}>Blog</Link>
+          </NextLink>
+        </Button>
+        <Button size="sm" variant="ghost">
+          <NextLink href="/bookmarks" passHref>
+            <Link _hover={{ textDecoration: "none" }}>Bookmarks</Link>
+          </NextLink>
+        </Button>
         <IconButton
-          size={"sm"}
-          icon={colorMode === "light" ? <IoMdMoon /> : <IoMdSunny />}
-          aria-label="toggle theme"
+          size="sm"
           variant="ghost"
+          aria-label="toggle theme"
+          icon={colorMode === "light" ? <IoMdMoon /> : <IoMdSunny />}
           onClick={toggleColorMode}
         />
       </HStack>

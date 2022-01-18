@@ -1,14 +1,12 @@
-import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
-
-import { theme } from "../lib/theme/";
+import { AppProps } from "next/app";
 import Layout from "../components/layout";
-import Header from "../components/layout/header";
+
+import theme from "../src/theme/theme";
 
 import "../styles.css";
-import Footer from "../components/layout/footer";
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <Layout>
@@ -17,5 +15,3 @@ function MyApp({ Component, pageProps }: AppProps) {
     </ChakraProvider>
   );
 }
-
-export default MyApp;

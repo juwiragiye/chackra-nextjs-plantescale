@@ -1,19 +1,21 @@
 import {
+  Box,
   Divider,
+  Link,
   SimpleGrid,
-  VStack,
-  Link as ChakraLink,
   Stack,
+  VStack,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import NextLink from "next/link";
+
 import {
+  TWITTER_PROFILE,
   GITHUB_PROFILE,
   INSTAGRAM_PROFILE,
-  TWITTER_PROFILE,
 } from "../../constants";
 
-const firstGroud = [
+const firstGroup = [
   {
     href: "/",
     label: "Home",
@@ -31,37 +33,32 @@ const firstGroud = [
     label: "Talks",
   },
 ];
-
-const secondGroud = [
-  {
-    href: TWITTER_PROFILE,
-    label: "Twitter",
-  },
+const secondGroup = [
   {
     href: GITHUB_PROFILE,
-    label: "Githhub",
+    label: "Github",
   },
   {
     href: INSTAGRAM_PROFILE,
     label: "Instagram",
   },
   {
-    href: "/",
-    label: "Twitch",
+    href: TWITTER_PROFILE,
+    label: "Twitter",
+  },
+  {
+    href: "https://facebook.com",
+    label: "Facebook",
   },
 ];
-const thirdGroud = [
+const thirdGroup = [
   {
-    href: "/users",
-    label: "Users",
+    href: "/uses",
+    label: "Uses",
   },
   {
-    href: "/gear",
+    href: "/Gear",
     label: "Gear",
-  },
-  {
-    href: "/bookmarks",
-    label: "Bookmarks",
   },
   {
     href: "/books",
@@ -71,46 +68,47 @@ const thirdGroud = [
 
 export default function Footer() {
   const { pathname } = useRouter();
+  console.log(pathname);
   return (
-    <VStack pd={8} spacing={8}>
+    <VStack as="footer" pt={8} spacing={8} alignItems="space-between">
       <Divider />
       <Stack
         direction={{ base: "column", md: "row" }}
-        w="full"
         justifyContent="space-between"
       >
-        <VStack alignItems="flex-start">
-          {firstGroud.map((navItem) => (
-            <Link href={navItem.href} passHref key={navItem.href}>
-              <ChakraLink
-                color={pathname === navItem.href ? "purple.500" : "gray.500"}
-              >
-                {navItem.label}
-              </ChakraLink>
-            </Link>
+        <VStack alignItems="flex-start" as="section">
+          {firstGroup.map(({ href, label }) => (
+            <NextLink href={href} key={href}>
+              <Link color={pathname === href ? "purple.500" : "gray.500"}>
+                {label}
+              </Link>
+            </NextLink>
           ))}
         </VStack>
-
-        <VStack alignItems="flex-start">
-          {secondGroud.map((navItem) => (
-            <Link href={navItem.href} passHref key={navItem.href}>
-              <ChakraLink color={"gray.500"}>{navItem.label}</ChakraLink>
-            </Link>
+        <VStack as="section" alignItems="flex-start">
+          {secondGroup.map(({ href, label }) => (
+            <NextLink href={href} passHref key={href}>
+              <Link
+                href={href}
+                isExternal
+                target="_blank"
+                color={pathname === href ? "purple.500" : "gray.500"}
+              >
+                {label}
+              </Link>
+            </NextLink>
           ))}
         </VStack>
-        <VStack alignItems="flex-start">
-          {thirdGroud.map((navItem) => (
-            <Link href={navItem.href} passHref key={navItem.href}>
-              <ChakraLink
-                color={pathname === navItem.href ? "purple.500" : "gray.500"}
-              >
-                {navItem.label}
-              </ChakraLink>
-            </Link>
+        <VStack as="section" alignItems="flex-start">
+          {thirdGroup.map(({ href, label }) => (
+            <NextLink href={href} key={href}>
+              <Link color={pathname === href ? "purple.500" : "gray.500"}>
+                {label}
+              </Link>
+            </NextLink>
           ))}
         </VStack>
       </Stack>
-      <Divider />
     </VStack>
   );
 }
